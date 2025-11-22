@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 import { User } from 'src/modules/user/app/domain/user';
+import { Post } from 'src/modules/post/app/domain/post';
 
 export class GetUsersResponseDto {
   @ApiProperty({ example: 'usr_12345' })
@@ -21,6 +22,7 @@ export class GetUsersResponseDto {
       },
     ],
     description: 'List of posts created by the user',
+    type: [Post],
   })
   posts: {
     id: string;
@@ -33,7 +35,7 @@ export class GetUsersResponseDto {
       id: user.id,
       name: user.name,
       email: user.email,
-      posts: user.posts.map((post: any) => ({
+      posts: user.posts.map((post: Post) => ({
         id: post.id,
         title: post.title,
         content: post.content,

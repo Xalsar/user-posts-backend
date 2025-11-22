@@ -13,6 +13,11 @@ export class Post {
     this.title = post.title ?? '';
     this.content = post.content ?? '';
     this.authorId = post.authorId ?? '';
+
+    if (post.author) {
+      this.authorId = post.author.id;
+      this.author = post.author;
+    }
   }
 
   static create(postData: Partial<Post>): Post {

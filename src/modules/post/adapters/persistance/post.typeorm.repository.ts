@@ -12,7 +12,9 @@ export class PostTypeOrmRepository {
   ) {}
 
   async findAll(): Promise<Post[]> {
-    const posts = await this.postRepository.find();
+    const posts = await this.postRepository.find({
+      relations: ['author'],
+    });
 
     return posts.map((post) => PostTypeOrmEntity.toDomain(post));
   }
