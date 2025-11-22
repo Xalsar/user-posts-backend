@@ -11,7 +11,10 @@ export class User {
     this.id = user.id ?? createId('user')();
     this.name = user.name ?? '';
     this.email = user.email ?? '';
-    this.posts = user.posts ?? [];
+
+    if (user.posts) {
+      this.posts = user.posts;
+    }
   }
 
   static create(userData: Partial<User>): User {
