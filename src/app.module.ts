@@ -13,7 +13,6 @@ import { PostModule } from './modules/post/post.module';
       port: 5432,
       username: 'myuser',
       password: 'mypassword',
-      // database: 'test',
       entities: [UserTypeOrmEntity, PostTypeOrmEntity],
       synchronize: true,
     }),
