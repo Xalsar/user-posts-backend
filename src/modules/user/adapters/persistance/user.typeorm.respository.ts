@@ -23,6 +23,22 @@ export class UserTypeOrmRepository {
     );
   }
 
+  async findByEmail(email: string): Promise<User | null> {
+    const userEntity = await this.userRepository.findOne({
+      where: { email },
+    });
+
+    if (!userEntity) {
+      return null;
+    }
+
+    return User.create({
+      id: userEntity.id,
+      name: userEntity.name,
+      email: userEntity.email,
+    });
+  }
+
   async create(userToCreate: User): Promise<User> {
     const userEntity = this.userRepository.create(userToCreate);
     return this.userRepository.save(userEntity);
