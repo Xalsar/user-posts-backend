@@ -1,9 +1,17 @@
-import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { ListAllUsersUseCase } from 'src/modules/user/app/use-cases/list-all-users/list-all-users.use-case';
 import { CreateUserUseCase } from '../../app/use-cases/create-user/create-user.use-case';
-import { IsEmail, IsNotEmpty, IsOptional, MinLength } from 'class-validator';
 import { UpdateUserUseCase } from '../../app/use-cases/update-user/update-user.user-case';
+import { DeleteUserUseCase } from '../../app/use-cases/delete-user/delete-user.use-case';
 
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
@@ -15,6 +23,7 @@ export class UserController {
     private readonly listAllUsersUseCase: ListAllUsersUseCase,
     private readonly createUserUseCase: CreateUserUseCase,
     private readonly updateUserUseCase: UpdateUserUseCase,
+    private readonly deleteUserUseCase: DeleteUserUseCase,
   ) {}
 
   @ApiOperation({ summary: 'Get all users' })
@@ -33,5 +42,11 @@ export class UserController {
   @Patch(':id')
   updateUser(@Param('id') id: string, @Body() updateData: UpdateUserDto) {
     return this.updateUserUseCase.execute(id, updateData);
+  }
+
+  @ApiOperation({ summary: 'Delete a user' })
+  @Delete(':id')
+  deleteUser(@Param('id') id: string) {
+    return this.deleteUserUseCase.execute(id);
   }
 }

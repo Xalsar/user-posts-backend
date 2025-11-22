@@ -6,8 +6,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserTypeOrmEntity } from './adapters/persistance/user.typeorm.entity';
 import { CreateUserUseCase } from './app/use-cases/create-user/create-user.use-case';
 import { UpdateUserUseCase } from './app/use-cases/update-user/update-user.user-case';
+import { DeleteUserUseCase } from './app/use-cases/delete-user/delete-user.use-case';
 
-const useCases = [ListAllUsersUseCase, CreateUserUseCase, UpdateUserUseCase];
+const useCases = [
+  ListAllUsersUseCase,
+  CreateUserUseCase,
+  UpdateUserUseCase,
+  DeleteUserUseCase,
+];
 
 @Module({
   imports: [TypeOrmModule.forFeature([UserTypeOrmEntity])],

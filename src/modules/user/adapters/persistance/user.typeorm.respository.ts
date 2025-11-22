@@ -74,4 +74,8 @@ export class UserTypeOrmRepository {
       email: savedUser.email,
     });
   }
+
+  async delete(id: string): Promise<void> {
+    await this.userRepository.delete(id);
+  }
 }
