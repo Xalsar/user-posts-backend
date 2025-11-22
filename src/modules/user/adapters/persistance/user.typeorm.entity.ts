@@ -1,5 +1,7 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { Column, Entity, OneToMany } from 'typeorm';
 import { BaseEntity } from 'src/shared/database/base.entity';
+import { PostTypeOrmEntity } from 'src/modules/post/adapters/persistance/post.typeorm.entity';
+import { User } from '../../app/domain/user';
 
 const tableName = 'users';
 
@@ -12,4 +14,14 @@ export class UserTypeOrmEntity extends BaseEntity(
 
   @Column({ nullable: false, unique: true })
   email: string;
+
+  @OneToMany(() => PostTypeOrmEntity, (post) => post.author)
+  posts: PostTypeOrmEntity[];
+
+  static toDomain(entity: UserTypeOrmEntity) {
+    return User.create({
+      ...entity,
+      posts: entity.posts?.map(PostTypeOrmEntity.toDomain),
+    });
+  }
 }

@@ -1,14 +1,17 @@
+import { Post } from 'src/modules/post/app/domain/post';
 import { createId } from 'src/shared/utils/create-id';
 
 export class User {
   id: string;
   name: string;
   email: string;
+  posts: Post[];
 
   private constructor(user: Partial<User>) {
     this.id = user.id ?? createId('user')();
     this.name = user.name ?? '';
     this.email = user.email ?? '';
+    this.posts = user.posts ?? [];
   }
 
   static create(userData: Partial<User>): User {

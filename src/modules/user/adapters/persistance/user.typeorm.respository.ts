@@ -12,15 +12,11 @@ export class UserTypeOrmRepository {
   ) {}
 
   async findAll(): Promise<User[]> {
-    const users = await this.userRepository.find();
+    const users = await this.userRepository.find({
+      relations: ['posts'],
+    });
 
-    return users.map((userEntity) =>
-      User.create({
-        id: userEntity.id,
-        name: userEntity.name,
-        email: userEntity.email,
-      }),
-    );
+    return users.map((userEntity) => UserTypeOrmEntity.toDomain(userEntity));
   }
 
   async findByEmail(email: string): Promise<User | null> {
@@ -32,11 +28,7 @@ export class UserTypeOrmRepository {
       return null;
     }
 
-    return User.create({
-      id: userEntity.id,
-      name: userEntity.name,
-      email: userEntity.email,
-    });
+    return UserTypeOrmEntity.toDomain(userEntity);
   }
 
   async findById(id: string): Promise<User | null> {
@@ -48,11 +40,7 @@ export class UserTypeOrmRepository {
       return null;
     }
 
-    return User.create({
-      id: userEntity.id,
-      name: userEntity.name,
-      email: userEntity.email,
-    });
+    return UserTypeOrmEntity.toDomain(userEntity);
   }
 
   async create(userToCreate: User): Promise<User> {
@@ -68,11 +56,7 @@ export class UserTypeOrmRepository {
   async update(userToUpdate: User): Promise<User> {
     const userEntity = this.userRepository.create(userToUpdate);
     const savedUser = await this.userRepository.save(userEntity);
-    return User.create({
-      id: savedUser.id,
-      name: savedUser.name,
-      email: savedUser.email,
-    });
+    return UserTypeOrmEntity.toDomain(savedUser);
   }
 
   async delete(id: string): Promise<void> {
