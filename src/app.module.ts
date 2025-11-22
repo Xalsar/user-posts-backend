@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './modules/user/user.module';
 import { UserTypeOrmEntity } from './modules/user/adapters/persistance/user.typeorm.entity';
@@ -22,7 +20,7 @@ import { PostModule } from './modules/post/post.module';
     UserModule,
     PostModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
