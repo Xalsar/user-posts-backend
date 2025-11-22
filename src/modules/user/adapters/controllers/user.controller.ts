@@ -4,7 +4,7 @@ import {
   Delete,
   Get,
   Param,
-  Patch,
+  Put,
   Post,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
@@ -39,7 +39,7 @@ export class UserController {
   }
 
   @ApiOperation({ summary: 'Update an existing user' })
-  @Patch(':id')
+  @Put(':id')
   updateUser(@Param('id') id: string, @Body() updateData: UpdateUserDto) {
     return this.updateUserUseCase.execute(id, updateData);
   }

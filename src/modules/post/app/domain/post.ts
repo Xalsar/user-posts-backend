@@ -21,6 +21,14 @@ export class Post {
     return post;
   }
 
+  updateTitle(newTitle: string) {
+    this.title = newTitle;
+  }
+
+  updateContent(newContent: string) {
+    this.content = newContent;
+  }
+
   setAuthor(author: User) {
     this.author = author;
     this.authorId = author.id;

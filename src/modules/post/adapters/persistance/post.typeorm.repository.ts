@@ -30,6 +30,25 @@ export class PostTypeOrmRepository {
     });
   }
 
+  async findById(id: string): Promise<Post | null> {
+    const postEntity = await this.postRepository.findOne({
+      where: { id },
+      relations: ['author'],
+    });
+
+    if (!postEntity) {
+      return null;
+    }
+
+    return PostTypeOrmEntity.toDomain(postEntity);
+  }
+
+  async update(postToUpdate: Post): Promise<Post> {
+    const postEntity = this.postRepository.create(postToUpdate);
+    const savedPost = await this.postRepository.save(postEntity);
+    return PostTypeOrmEntity.toDomain(savedPost);
+  }
+
   async delete(postId: string): Promise<void> {
     await this.postRepository.delete(postId);
   }
