@@ -5,31 +5,8 @@ import { CreateUserUseCase } from '../../app/use-cases/create-user/create-user.u
 import { IsEmail, IsNotEmpty, IsOptional, MinLength } from 'class-validator';
 import { UpdateUserUseCase } from '../../app/use-cases/update-user/update-user.user-case';
 
-class CreateUserDto {
-  @IsNotEmpty({
-    message: 'Name should not be empty',
-  })
-  @MinLength(2, { message: 'Name must be at least 2 characters long' })
-  name: string;
-
-  @IsEmail({}, { message: 'Invalid email address' })
-  @IsNotEmpty({ message: 'Email should not be empty' })
-  email: string;
-}
-
-class UpdateUserDto {
-  @IsNotEmpty({
-    message: 'Name should not be empty',
-  })
-  @MinLength(2, { message: 'Name must be at least 2 characters long' })
-  @IsOptional()
-  name?: string;
-
-  @IsEmail({}, { message: 'Invalid email address' })
-  @IsNotEmpty({ message: 'Email should not be empty' })
-  @IsOptional()
-  email?: string;
-}
+import { CreateUserDto } from './dtos/create-user.dto';
+import { UpdateUserDto } from './dtos/update-user.dto';
 
 @ApiTags('users')
 @Controller('users')
