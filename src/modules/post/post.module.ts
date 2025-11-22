@@ -6,8 +6,9 @@ import { ListAllPostsUseCase } from './app/use-cases/list-all-posts/list-all-pos
 import { PostTypeOrmRepository } from './adapters/persistance/post.typeorm.repository';
 import { CreatePostUseCase } from './app/use-cases/create-post/create-post.use-case';
 import { UserModule } from '../user/user.module';
+import { DeletePostUseCase } from './app/use-cases/delete-post/delete-post.use-case';
 
-const useCases = [ListAllPostsUseCase, CreatePostUseCase];
+const useCases = [ListAllPostsUseCase, CreatePostUseCase, DeletePostUseCase];
 
 @Module({
   imports: [TypeOrmModule.forFeature([PostTypeOrmEntity]), UserModule],

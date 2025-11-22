@@ -29,4 +29,8 @@ export class PostTypeOrmRepository {
       authorId: savedPost.author.id,
     });
   }
+
+  async delete(postId: string): Promise<void> {
+    await this.postRepository.delete(postId);
+  }
 }
