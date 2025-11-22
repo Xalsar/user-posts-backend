@@ -29,6 +29,11 @@ export class Post {
     this.content = newContent;
   }
 
+  changeAuthor(newAuthor: User) {
+    this.authorId = newAuthor.id;
+    this.author = newAuthor;
+  }
+
   setAuthor(author: User) {
     this.author = author;
     this.authorId = author.id;

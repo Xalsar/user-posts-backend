@@ -8,12 +8,14 @@ import { CreatePostUseCase } from './app/use-cases/create-post/create-post.use-c
 import { UserModule } from '../user/user.module';
 import { UpdatePostUseCase } from './app/use-cases/update-post/update-post.use-case';
 import { DeletePostUseCase } from './app/use-cases/delete-post/delete-post.use-case';
+import { TransferPostAuthorshipUseCase } from './app/use-cases/transfer-post-authorship/transfer-post-authorship.use-case';
 
 const useCases = [
   ListAllPostsUseCase,
   CreatePostUseCase,
   UpdatePostUseCase,
   DeletePostUseCase,
+  TransferPostAuthorshipUseCase,
 ];
 
 @Module({

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PostTypeOrmRepository } from 'src/modules/post/adapters/persistance/post.typeorm.repository';
-import { PostNotFoundException } from './exceptions/post-not-found.exception';
+import { PostNotFoundException } from '../shared/exceptions/post-not-found.exception';
 
 @Injectable()
 export class UpdatePostUseCase {
