@@ -7,14 +7,22 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  ApiConflictResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiTags,
+} from '@nestjs/swagger';
 import { ListAllUsersUseCase } from 'src/modules/user/app/use-cases/list-all-users/list-all-users.use-case';
 import { CreateUserUseCase } from '../../app/use-cases/create-user/create-user.use-case';
 import { UpdateUserUseCase } from '../../app/use-cases/update-user/update-user.user-case';
 import { DeleteUserUseCase } from '../../app/use-cases/delete-user/delete-user.use-case';
 
-import { CreateUserDto } from './dtos/create-user.dto';
-import { UpdateUserDto } from './dtos/update-user.dto';
+import { CreateUserRequestDto } from './dtos/request/create-user.request.dto';
+import { UpdateUserRequestDto } from './dtos/request/update-user.request.dto';
+import { GetUsersResponseDto } from './dtos/response/get-users.response.dto';
+import { CreateUserResponseDto } from './dtos/response/create-user.response.dto';
+import { UpdateUserResponseDto } from './dtos/response/update-user.response.dto';
 
 @ApiTags('users')
 @Controller('users')
@@ -26,27 +34,53 @@ export class UserController {
     private readonly deleteUserUseCase: DeleteUserUseCase,
   ) {}
 
-  @ApiOperation({ summary: 'Get all users' })
+  @ApiOperation({ summary: 'Get all users. And its posts' })
+  @ApiOkResponse({
+    type: [GetUsersResponseDto],
+    description: 'List of users and their posts listed successfully',
+  })
   @Get()
-  getUsers() {
-    return this.listAllUsersUseCase.execute();
+  async getUsers(): Promise<GetUsersResponseDto[]> {
+    const users = await this.listAllUsersUseCase.execute();
+    return users.map((user) => GetUsersResponseDto.create(user));
   }
 
   @ApiOperation({ summary: 'Create a new user' })
+  @ApiOkResponse({
+    type: CreateUserResponseDto,
+    description: 'User created successfully',
+  })
+  @ApiConflictResponse({
+    description: 'User with the given email already exists',
+  })
   @Post()
-  createUser(@Body() userData: CreateUserDto) {
-    return this.createUserUseCase.execute(userData);
+  async createUser(
+    @Body() userData: CreateUserRequestDto,
+  ): Promise<CreateUserResponseDto> {
+    const user = await this.createUserUseCase.execute(userData);
+    return CreateUserResponseDto.create(user);
   }
 
   @ApiOperation({ summary: 'Update an existing user' })
+  @ApiOkResponse({
+    type: UpdateUserResponseDto,
+    description: 'User updated successfully',
+  })
   @Patch(':id')
-  updateUser(@Param('id') id: string, @Body() updateData: UpdateUserDto) {
-    return this.updateUserUseCase.execute(id, updateData);
+  async updateUser(
+    @Param('id') id: string,
+    @Body() updateData: UpdateUserRequestDto,
+  ): Promise<UpdateUserResponseDto> {
+    const user = await this.updateUserUseCase.execute(id, updateData);
+    return UpdateUserResponseDto.create(user);
   }
 
   @ApiOperation({ summary: 'Delete a user' })
+  @ApiOkResponse({
+    description: 'User deleted successfully',
+  })
   @Delete(':id')
-  deleteUser(@Param('id') id: string) {
+  async deleteUser(@Param('id') id: string): Promise<void> {
     return this.deleteUserUseCase.execute(id);
   }
 }
