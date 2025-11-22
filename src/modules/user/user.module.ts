@@ -5,8 +5,9 @@ import { UserTypeOrmRepository } from './adapters/persistance/user.typeorm.respo
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserTypeOrmEntity } from './adapters/persistance/user.typeorm.entity';
 import { CreateUserUseCase } from './app/use-cases/create-user/create-user.use-case';
+import { UpdateUserUseCase } from './app/use-cases/update-user/update-user.user-case';
 
-const useCases = [ListAllUsersUseCase, CreateUserUseCase];
+const useCases = [ListAllUsersUseCase, CreateUserUseCase, UpdateUserUseCase];
 
 @Module({
   imports: [TypeOrmModule.forFeature([UserTypeOrmEntity])],

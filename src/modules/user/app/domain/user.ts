@@ -14,4 +14,12 @@ export class User {
   static create(userData: Partial<User>): User {
     return new User(userData);
   }
+
+  updateName(name: string) {
+    this.name = name;
+  }
+
+  updateEmail(email: string) {
+    this.email = email;
+  }
 }

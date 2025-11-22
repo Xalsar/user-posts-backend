@@ -39,8 +39,39 @@ export class UserTypeOrmRepository {
     });
   }
 
+  async findById(id: string): Promise<User | null> {
+    const userEntity = await this.userRepository.findOne({
+      where: { id },
+    });
+
+    if (!userEntity) {
+      return null;
+    }
+
+    return User.create({
+      id: userEntity.id,
+      name: userEntity.name,
+      email: userEntity.email,
+    });
+  }
+
   async create(userToCreate: User): Promise<User> {
     const userEntity = this.userRepository.create(userToCreate);
-    return this.userRepository.save(userEntity);
+    const savedUser = await this.userRepository.save(userEntity);
+    return User.create({
+      id: savedUser.id,
+      name: savedUser.name,
+      email: savedUser.email,
+    });
+  }
+
+  async update(userToUpdate: User): Promise<User> {
+    const userEntity = this.userRepository.create(userToUpdate);
+    const savedUser = await this.userRepository.save(userEntity);
+    return User.create({
+      id: savedUser.id,
+      name: savedUser.name,
+      email: savedUser.email,
+    });
   }
 }

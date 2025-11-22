@@ -2,11 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { UserTypeOrmRepository } from 'src/modules/user/adapters/persistance/user.typeorm.respository';
 import { User } from 'src/modules/user/app/domain/user';
 import { UserWithThatEmailAlradyExistsException } from './exceptions/user-with-that-email-alrady-exists.exception';
-
-interface CreateUserPort {
-  name: string;
-  email: string;
-}
+import { CreateUserPort } from './ports/create-user.ports';
 
 @Injectable()
 export class CreateUserUseCase {
