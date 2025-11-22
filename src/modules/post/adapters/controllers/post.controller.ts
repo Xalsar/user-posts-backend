@@ -5,7 +5,7 @@ import {
   Get,
   Param,
   Post,
-  Put,
+  Patch,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { ListAllPostsUseCase } from '../../app/use-cases/list-all-posts/list-all-posts.use-case';
@@ -39,7 +39,7 @@ export class PostController {
   }
 
   @ApiOperation({ summary: 'Update a post' })
-  @Put(':id')
+  @Patch(':id')
   updatePost(@Param('id') postId: string, @Body() updateData: UpdatePostDto) {
     return this.updatePostUseCase.execute(postId, updateData);
   }
