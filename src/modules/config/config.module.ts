@@ -4,7 +4,7 @@ import z from 'zod';
 
 const envSchema = z.object({
   APP_NAME: z.string().optional(),
-  PORT: z.string().transform(Number).optional(),
+  APP_PORT: z.string().transform(Number).optional(),
   DATABASE_HOST: z.string(),
   DATABASE_PORT: z.string().transform(Number),
   DATABASE_USERNAME: z.string(),
