@@ -15,6 +15,8 @@ pnpm i
 
 pnpm run build
 
+pnpm run migration:run
+
 pnpm run start:prod # Or use start:dev to run it in development mode
 ```
 
