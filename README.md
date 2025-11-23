@@ -1,4 +1,4 @@
-# NestJS Users Post Backend
+# NestJS Users and Posts Backend
 
 An app built with NestJS, following the principles of Hexagonal Architecture and Domain-Driven Design (DDD).
 
