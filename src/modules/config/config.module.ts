@@ -7,6 +7,7 @@ import { envSchema } from '../../shared/zod-schemas/env-schema';
     NestJsConfigModule.forRoot({
       validate: (config) => {
         const parsed = envSchema.safeParse(config);
+
         if (!parsed.success) {
           throw new Error(
             `❌ Invalid environment variables: ${JSON.stringify(parsed.error.issues)}`,
