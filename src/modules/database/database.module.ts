@@ -12,7 +12,8 @@ import { PostTypeOrmEntity } from '../post/adapters/persistance/post.typeorm.ent
       username: process.env.DATABASE_USERNAME,
       password: process.env.DATABASE_PASSWORD,
       entities: [UserTypeOrmEntity, PostTypeOrmEntity],
-      synchronize: true, // Note: Set to false in production.
+      synchronize: false,
+      autoLoadEntities: true,
     }),
   ],
 })
