@@ -7,7 +7,12 @@ import {
   Post,
   Patch,
 } from '@nestjs/common';
-import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiTags,
+} from '@nestjs/swagger';
 import { ListAllPostsUseCase } from '../../app/use-cases/list-all-posts/list-all-posts.use-case';
 import { CreatePostUseCase } from '../../app/use-cases/create-post/create-post.use-case';
 
@@ -20,6 +25,8 @@ import { GetPostResponseDto } from './dtos/response/get-posts.response.dto';
 import { UpdatePostResponseDto } from './dtos/response/update-post.response.dto';
 import { CreatePostResponseDto } from './dtos/response/create-post.response.dto';
 import { TransferOwnershipResponseDto } from './dtos/response/transfer-ownership.response.dto';
+import { AuthorNotFoundException } from '../../app/shared/exceptions/author-not-found.exception';
+import { PostNotFoundException } from '../../app/use-cases/shared/exceptions/post-not-found.exception';
 
 @ApiTags('posts')
 @Controller('posts')
@@ -48,6 +55,10 @@ export class PostController {
     type: CreatePostResponseDto,
     description: 'Post created successfully',
   })
+  @ApiNotFoundResponse({
+    type: AuthorNotFoundException,
+    description: 'Author not found',
+  })
   @Post()
   async createPost(
     @Body() postData: CreatePostRequestDto,
@@ -60,6 +71,10 @@ export class PostController {
   @ApiOkResponse({
     type: UpdatePostResponseDto,
     description: 'Post updated successfully',
+  })
+  @ApiNotFoundResponse({
+    type: PostNotFoundException,
+    description: 'Post not found',
   })
   @Patch(':id')
   async updatePost(
@@ -74,6 +89,9 @@ export class PostController {
   }
 
   @ApiOperation({ summary: 'Delete a post' })
+  @ApiOkResponse({
+    description: 'Post deleted successfully',
+  })
   @Delete(':id')
   deletePost(@Param('id') postId: string): Promise<void> {
     return this.deletePostUseCase.execute(postId);
@@ -85,6 +103,14 @@ export class PostController {
   @ApiOkResponse({
     type: TransferOwnershipResponseDto,
     description: 'Post authorship transferred successfully',
+  })
+  @ApiNotFoundResponse({
+    type: PostNotFoundException,
+    description: 'Post not found',
+  })
+  @ApiNotFoundResponse({
+    type: AuthorNotFoundException,
+    description: 'New author not found',
   })
   @Post(':postId/transfer-authorship/:newAuthorId')
   async transferPostAuthorship(

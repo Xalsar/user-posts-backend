@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PostTypeOrmRepository } from 'src/modules/post/adapters/persistance/post.typeorm.repository';
 import { Post } from '../../domain/post';
 import { UserTypeOrmRepository } from 'src/modules/user/adapters/persistance/user.typeorm.respository';
-import { AuthorNotFoundException } from './exceptions/author-not-found.exception';
+import { AuthorNotFoundException } from '../../shared/exceptions/author-not-found.exception';
 
 interface CreatePostPort {
   title: string;

@@ -9,6 +9,7 @@ import {
 } from '@nestjs/common';
 import {
   ApiConflictResponse,
+  ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
   ApiTags,
@@ -23,6 +24,8 @@ import { UpdateUserRequestDto } from './dtos/request/update-user.request.dto';
 import { GetUsersResponseDto } from './dtos/response/get-users.response.dto';
 import { CreateUserResponseDto } from './dtos/response/create-user.response.dto';
 import { UpdateUserResponseDto } from './dtos/response/update-user.response.dto';
+import { UserWithThatEmailAlradyExistsException } from '../../app/use-cases/create-user/exceptions/user-with-that-email-alrady-exists.exception';
+import { UserNotFoundException } from '../../app/use-cases/update-user/exceptions/user-not-found.exception';
 
 @ApiTags('users')
 @Controller('users')
@@ -51,6 +54,7 @@ export class UserController {
     description: 'User created successfully',
   })
   @ApiConflictResponse({
+    type: UserWithThatEmailAlradyExistsException,
     description: 'User with the given email already exists',
   })
   @Post()
@@ -65,6 +69,10 @@ export class UserController {
   @ApiOkResponse({
     type: UpdateUserResponseDto,
     description: 'User updated successfully',
+  })
+  @ApiNotFoundResponse({
+    type: UserNotFoundException,
+    description: 'User not found',
   })
   @Patch(':id')
   async updateUser(
