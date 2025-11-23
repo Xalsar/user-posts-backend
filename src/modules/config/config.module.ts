@@ -1,15 +1,6 @@
 import { ConfigModule as NestJsConfigModule } from '@nestjs/config';
 import { Module } from '@nestjs/common';
-import z from 'zod';
-
-const envSchema = z.object({
-  APP_NAME: z.string().optional(),
-  APP_PORT: z.string().transform(Number).optional(),
-  DATABASE_HOST: z.string(),
-  DATABASE_PORT: z.string().transform(Number),
-  DATABASE_USERNAME: z.string(),
-  DATABASE_PASSWORD: z.string(),
-});
+import { envSchema } from '../../shared/zod-schemas/env-schema';
 
 @Module({
   imports: [
