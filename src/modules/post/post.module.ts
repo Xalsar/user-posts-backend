@@ -9,6 +9,7 @@ import { UserModule } from '../user/user.module';
 import { UpdatePostUseCase } from './app/use-cases/update-post/update-post.use-case';
 import { DeletePostUseCase } from './app/use-cases/delete-post/delete-post.use-case';
 import { TransferPostAuthorshipUseCase } from './app/use-cases/transfer-post-authorship/transfer-post-authorship.use-case';
+import { PostRepositoryPort } from './app/ports/post-repository.port';
 
 const useCases = [
   ListAllPostsUseCase,
@@ -21,6 +22,12 @@ const useCases = [
 @Module({
   imports: [TypeOrmModule.forFeature([PostTypeOrmEntity]), UserModule],
   controllers: [PostController],
-  providers: [...useCases, PostTypeOrmRepository],
+  providers: [
+    ...useCases,
+    {
+      provide: PostRepositoryPort,
+      useClass: PostTypeOrmRepository,
+    },
+  ],
 })
 export class PostModule {}

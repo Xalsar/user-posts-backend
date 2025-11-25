@@ -4,11 +4,12 @@ import { Post } from '../../domain/post';
 import { AuthorNotFoundException } from '../../shared/exceptions/author-not-found.exception';
 import { CreatePostInput } from './inputs/create-post.input';
 import { UserRepositoryPort } from 'src/modules/user/app/ports/user-repository.port';
+import { PostRepositoryPort } from '../../ports/post-repository.port';
 
 @Injectable()
 export class CreatePostUseCase {
   constructor(
-    private readonly postRepository: PostTypeOrmRepository,
+    private readonly postRepository: PostRepositoryPort,
     private readonly userRepository: UserRepositoryPort,
   ) {}
 
