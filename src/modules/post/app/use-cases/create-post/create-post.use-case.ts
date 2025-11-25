@@ -3,12 +3,7 @@ import { PostTypeOrmRepository } from 'src/modules/post/adapters/persistance/pos
 import { Post } from '../../domain/post';
 import { UserTypeOrmRepository } from 'src/modules/user/adapters/persistance/user.typeorm.respository';
 import { AuthorNotFoundException } from '../../shared/exceptions/author-not-found.exception';
-
-interface CreatePostPort {
-  title: string;
-  content: string;
-  authorId: string;
-}
+import { CreatePostInput } from './inputs/create-post.input';
 
 @Injectable()
 export class CreatePostUseCase {
@@ -17,7 +12,7 @@ export class CreatePostUseCase {
     private readonly userRepository: UserTypeOrmRepository,
   ) {}
 
-  async execute(postData: CreatePostPort) {
+  async execute(postData: CreatePostInput) {
     const postToCreate = Post.create(postData);
 
     const author = await this.userRepository.findById(postData.authorId);
