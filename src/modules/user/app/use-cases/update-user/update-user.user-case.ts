@@ -1,11 +1,11 @@
-import { UserTypeOrmRepository } from 'src/modules/user/adapters/persistance/user.typeorm.respository';
 import { UserNotFoundException } from './exceptions/user-not-found.exception';
 import { Injectable } from '@nestjs/common';
 import { UpdateUserInput } from './inputs/update-user.input';
+import { UserRepositoryPort } from '../../ports/user-repository.port';
 
 @Injectable()
 export class UpdateUserUseCase {
-  constructor(private readonly userRepository: UserTypeOrmRepository) {}
+  constructor(private readonly userRepository: UserRepositoryPort) {}
 
   async execute(id: string, updateData: UpdateUserInput) {
     const user = await this.userRepository.findById(id);

@@ -4,12 +4,16 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm/repository/Repository';
 import { User } from '../../app/domain/user';
 
+import { UserRepositoryPort } from '../../app/ports/user-repository.port';
+
 @Injectable()
-export class UserTypeOrmRepository {
+export class UserTypeOrmRepository extends UserRepositoryPort {
   constructor(
     @InjectRepository(UserTypeOrmEntity)
     private readonly userRepository: Repository<UserTypeOrmEntity>,
-  ) {}
+  ) {
+    super();
+  }
 
   async findAll(): Promise<User[]> {
     const users = await this.userRepository.find({

@@ -8,6 +8,7 @@ import { CreateUserUseCase } from './app/use-cases/create-user/create-user.use-c
 import { UpdateUserUseCase } from './app/use-cases/update-user/update-user.user-case';
 import { DeleteUserUseCase } from './app/use-cases/delete-user/delete-user.use-case';
 import { PostTypeOrmEntity } from '../post/adapters/persistance/post.typeorm.entity';
+import { UserRepositoryPort } from './app/ports/user-repository.port';
 
 const useCases = [
   ListAllUsersUseCase,
@@ -19,7 +20,13 @@ const useCases = [
 @Module({
   imports: [TypeOrmModule.forFeature([UserTypeOrmEntity, PostTypeOrmEntity])],
   controllers: [UserController],
-  providers: [...useCases, UserTypeOrmRepository],
-  exports: [UserTypeOrmRepository],
+  providers: [
+    ...useCases,
+    {
+      provide: UserRepositoryPort,
+      useClass: UserTypeOrmRepository,
+    },
+  ],
+  exports: [UserRepositoryPort],
 })
 export class UserModule {}

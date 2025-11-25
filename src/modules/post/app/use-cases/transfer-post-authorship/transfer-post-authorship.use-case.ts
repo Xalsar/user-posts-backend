@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { PostTypeOrmRepository } from 'src/modules/post/adapters/persistance/post.typeorm.repository';
 import { PostNotFoundException } from '../shared/exceptions/post-not-found.exception';
-import { UserTypeOrmRepository } from 'src/modules/user/adapters/persistance/user.typeorm.respository';
 import { AuthorNotFoundException } from '../../shared/exceptions/author-not-found.exception';
+import { UserRepositoryPort } from 'src/modules/user/app/ports/user-repository.port';
 
 @Injectable()
 export class TransferPostAuthorshipUseCase {
   constructor(
     private readonly postRepository: PostTypeOrmRepository,
-    private readonly userRepository: UserTypeOrmRepository,
+    private readonly userRepository: UserRepositoryPort,
   ) {}
 
   async execute(postId: string, newAuthorId: string) {

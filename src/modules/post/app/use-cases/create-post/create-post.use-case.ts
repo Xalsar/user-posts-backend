@@ -1,15 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { PostTypeOrmRepository } from 'src/modules/post/adapters/persistance/post.typeorm.repository';
 import { Post } from '../../domain/post';
-import { UserTypeOrmRepository } from 'src/modules/user/adapters/persistance/user.typeorm.respository';
 import { AuthorNotFoundException } from '../../shared/exceptions/author-not-found.exception';
 import { CreatePostInput } from './inputs/create-post.input';
+import { UserRepositoryPort } from 'src/modules/user/app/ports/user-repository.port';
 
 @Injectable()
 export class CreatePostUseCase {
   constructor(
     private readonly postRepository: PostTypeOrmRepository,
-    private readonly userRepository: UserTypeOrmRepository,
+    private readonly userRepository: UserRepositoryPort,
   ) {}
 
   async execute(postData: CreatePostInput) {

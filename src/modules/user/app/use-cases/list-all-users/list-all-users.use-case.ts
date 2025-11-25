@@ -1,10 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { UserTypeOrmRepository } from 'src/modules/user/adapters/persistance/user.typeorm.respository';
+import { UserRepositoryPort } from '../../ports/user-repository.port';
 
 @Injectable()
 export class ListAllUsersUseCase {
-  constructor(private readonly userRepository: UserTypeOrmRepository) {}
-
+  constructor(private readonly userRepository: UserRepositoryPort) {}
   async execute() {
     return this.userRepository.findAll();
   }

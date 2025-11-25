@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { UserTypeOrmRepository } from 'src/modules/user/adapters/persistance/user.typeorm.respository';
 import { User } from 'src/modules/user/app/domain/user';
 import { UserWithThatEmailAlradyExistsException } from './exceptions/user-with-that-email-alrady-exists.exception';
 import { CreateUserInput } from './inputs/create-user.input';
+import { UserRepositoryPort } from '../../ports/user-repository.port';
 
 @Injectable()
 export class CreateUserUseCase {
-  constructor(private readonly userRepository: UserTypeOrmRepository) {}
+  constructor(private readonly userRepository: UserRepositoryPort) {}
 
   async execute(userData: CreateUserInput) {
     const userToCreate = User.create(userData);
