@@ -3,6 +3,15 @@ import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 
+export const appValidationPipe = new ValidationPipe({
+  transform: true,
+  whitelist: true,
+  forbidNonWhitelisted: true,
+  transformOptions: {
+    enableImplicitConversion: true,
+  },
+});
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
@@ -16,16 +25,7 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
 
   // Validation
-  app.useGlobalPipes(
-    new ValidationPipe({
-      transform: true,
-      whitelist: true,
-      forbidNonWhitelisted: true,
-      transformOptions: {
-        enableImplicitConversion: true,
-      },
-    }),
-  );
+  app.useGlobalPipes(appValidationPipe);
 
   await app.listen(process.env.APP_PORT!);
 }
