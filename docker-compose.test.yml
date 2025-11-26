@@ -6,10 +6,17 @@ services:
     environment:
       - POSTGRES_USER=myuser
       - POSTGRES_PASSWORD=mypassword
+    networks:
+      - users-posts-postgres-test-db-bridge
     volumes:
-      - user-posts-postgres-test-db:/var/lib/postgresql/data
+      - users-posts-postgres-test-db:/var/lib/postgresql/data
     ports:
       - '5433:5432'
 
 volumes:
-  user-posts-postgres-test-db:
+  users-posts-postgres-test-db:
+
+networks:
+  users-posts-postgres-test-db-bridge:
+    driver: bridge
+    name: users-posts-postgres-test-db-bridge

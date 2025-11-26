@@ -6,6 +6,8 @@ services:
     environment:
       - POSTGRES_USER=myuser
       - POSTGRES_PASSWORD=mypassword
+    networks:
+      - users-posts-postgres-db-bridge
     volumes:
       - users-posts-postgres-db:/var/lib/postgresql/data
     ports:
@@ -13,3 +15,8 @@ services:
 
 volumes:
   users-posts-postgres-db:
+
+networks:
+  users-posts-postgres-db-bridge:
+    driver: bridge
+    name: users-posts-postgres-db-bridge
