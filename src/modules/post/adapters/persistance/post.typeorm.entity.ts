@@ -1,6 +1,6 @@
 import { BaseEntity } from 'src/shared/database/base.entity';
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
-import { UserTypeOrmEntity } from 'src/modules/user/adapters/persistance/user.typeorm.entity';
+import { UserTypeOrmEntity } from '@/modules/user/adapters/persistance/user.typeorm.entity';
 import { Post } from '../../app/domain/post';
 
 const tableName = 'posts';

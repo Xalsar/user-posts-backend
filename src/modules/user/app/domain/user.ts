@@ -1,5 +1,5 @@
 import { Post } from 'src/modules/post/app/domain/post';
-import { createId } from 'src/shared/utils/create-id';
+import { createId } from '../../../../shared/utils/create-id';
 
 export class User {
   id: string;

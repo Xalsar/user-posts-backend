@@ -1,6 +1,6 @@
 import { Column, Entity, OneToMany } from 'typeorm';
-import { BaseEntity } from 'src/shared/database/base.entity';
-import { PostTypeOrmEntity } from 'src/modules/post/adapters/persistance/post.typeorm.entity';
+import { BaseEntity } from '@/shared/database/base.entity';
+import { PostTypeOrmEntity } from '@/modules/post/adapters/persistance/post.typeorm.entity';
 import { User } from '../../app/domain/user';
 
 const tableName = 'users';

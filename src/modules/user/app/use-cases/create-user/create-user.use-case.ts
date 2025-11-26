@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { User } from 'src/modules/user/app/domain/user';
+import { User } from '../../domain/user';
 import { UserWithThatEmailAlradyExistsException } from './exceptions/user-with-that-email-alrady-exists.exception';
 import { CreateUserInput } from './inputs/create-user.input';
 import { UserRepositoryPort } from '../../ports/user-repository.port';
