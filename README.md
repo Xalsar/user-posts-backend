@@ -22,6 +22,12 @@ pnpm run start:prod # Or use start:dev to run it in development mode
 
 You can now navigate to APP_PORT/api to view the Swagger documentation.
 
+## 🧪 Tests
+
+```
+pnpm run test
+```
+
 ## 🎉 Thank You!
 
 Thanks for checking out this project.
