@@ -1,15 +1,15 @@
 version: '3.8'
 services:
-  users-posts-postgres-db:
+  user-posts-postgres-test-db:
     image: postgres:13.5
     restart: always
     environment:
       - POSTGRES_USER=myuser
       - POSTGRES_PASSWORD=mypassword
     volumes:
-      - users-posts-postgres-db:/var/lib/postgresql/data
+      - user-posts-postgres-test-db:/var/lib/postgresql/data
     ports:
-      - '5432:5432'
+      - '5433:5432'
 
 volumes:
-  users-posts-postgres-db:
+  user-posts-postgres-test-db:
